@@ -3,9 +3,8 @@ package com.example.tutorialthymeleaf;
 import com.example.tutorialthymeleaf.persistence.entity.user.Admin;
 import com.example.tutorialthymeleaf.persistence.entity.user.Personal;
 import com.example.tutorialthymeleaf.persistence.repository.user.AdminRepository;
-
 import com.example.tutorialthymeleaf.persistence.repository.user.PersonalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,17 +17,18 @@ import java.io.IOException;
 @SpringBootApplication
 public class TutorialThymeleafApplication {
 
-    @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
-    private PersonalRepository personalRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AdminRepository adminRepository;
+    private final PersonalRepository personalRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${initPersonals}")
     private boolean initPersonals;
+
+    public TutorialThymeleafApplication(AdminRepository adminRepository, PersonalRepository personalRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.adminRepository = adminRepository;
+        this.personalRepository = personalRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TutorialThymeleafApplication.class, args);
